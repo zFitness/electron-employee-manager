@@ -7,16 +7,42 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'index',
+    component: () => import('@/views/index.vue'),
+    children: [
+      {
+        path: '/user',
+        name: 'user',
+        component: () => import(/* webpackChunkName: "about" */ '../views/User.vue')
+      },
+      {
+        path: '/user2',
+        name: 'user2',
+        component: () => import(/* webpackChunkName: "about" */ '../views/User2.vue')
+      },
+      {
+        // 关于应用页面
+        path: '/about',
+        name: 'about',
+        component: () => import(/* webpackChunkName: "about" */ '../views/about/About.vue')
+      },
+      {
+        // 用户信息页面
+        path: '/userInfo',
+        name: 'userInfo',
+        component: () => import(/* webpackChunkName: "about" */ '../views/UserInfo.vue')
+      }, {
+        // 编辑用户信息页面
+        path: '/userEdit',
+        name: 'userEdit',
+        component: () => import(/* webpackChunkName: "about" */ '../views/UserEdit.vue')
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/music',
+    name: 'home',
+    component: Home
   }
 ]
 

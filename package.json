@@ -4,12 +4,21 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
   },
+  "main": "background.js",
   "dependencies": {
+    "axios": "^0.19.0",
     "core-js": "^3.4.3",
+    "element-ui": "^2.4.5",
+    "nice-bar": "^1.0.11",
+    "node-sass": "^4.13.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.1.3",
+    "vue-router": "^3.0.7",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
@@ -17,10 +26,17 @@
     "@vue/cli-plugin-router": "^4.1.0",
     "@vue/cli-plugin-vuex": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
+    "electron": "^6.0.0",
+    "sass-loader": "^8.0.0",
+    "vue-cli-plugin-electron-builder": "^1.4.3",
+    "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.10"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "electronDownload": {
+    "mirror": "https://npm.taobao.org/mirrors/electron/"
+  }
 }
