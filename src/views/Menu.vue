@@ -11,36 +11,20 @@
           <i class="el-icon-message"></i>员工管理
         </template>
         <el-menu-item-group>
-          <template slot="title">分组一</template>
           <el-menu-item index="1-1" @click="openPage(1)">员工列表</el-menu-item>
           <el-menu-item index="1-2" @click="openPage(2)">用户列表2</el-menu-item>
           <el-menu-item index="1-2" @click="openPage(4)">用户信息</el-menu-item>
           <el-menu-item index="1-2" @click="openPage(5)">编辑用户</el-menu-item>
         </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3" @click="openPage(3)">关于</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-        </el-submenu>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-menu"></i>人事管理
         </template>
         <el-menu-item-group>
-          <template slot="title">分组一</template>
           <el-menu-item index="2-1">选项1</el-menu-item>
           <el-menu-item index="2-2">选项2</el-menu-item>
         </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="2-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-        </el-submenu>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title">

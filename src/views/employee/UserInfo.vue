@@ -9,9 +9,12 @@
     <div class="info">
       <div class="name">
         <div class="left">
-          <span>zfitness</span>
+          <span>{{ user.name }} &emsp;</span>
           <span>
-            <i class="el-icon-male"></i>
+            <i
+              :class="user.sex?'el-icon-male':'el-icon-female'"
+              style="color:#409EFF;font-size:28px"
+            ></i>
           </span>
         </div>
         <div class="right">
@@ -21,11 +24,11 @@
       <hr />
       <div>
         地区：
-        <span>湖南张家界</span>
+        <span>{{ user.address }}</span>
       </div>
       <div>
-        爱好：
-        <span>coding， 游戏， 运动</span>
+        技能：
+        <span>{{ user.spcialty }}</span>
       </div>
       <div>
         个人介绍：
@@ -40,6 +43,23 @@ export default {
   data() {
     return {
       fits: ["fill"],
+      user: {
+        address: "张家界",
+        authority: 1,
+        birthday: "2019-12-20",
+        department: "开发部",
+        eduLevel: "大本",
+        email: "dd@qq.com",
+        id: 28,
+        job: "架构师",
+        name: "郑",
+        password: "123",
+        remark: "哈哈哈哈",
+        sex: 1,
+        spcialty: "java, python",
+        state: "T",
+        tel: "123"
+      },
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
     };

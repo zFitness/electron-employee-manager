@@ -25,9 +25,12 @@
         </ul>
       </div>
       <el-button class="min" slot="reference">
-        <i class="el-icon-message"></i>
+        <el-badge :value="2" class="item" type="primary">
+          <i class="el-icon-message"></i>
+        </el-badge>
       </el-button>
     </el-popover>
+
     <!-- 软件设置 -->
     <button class="min">
       <i class="el-icon-setting"></i>
