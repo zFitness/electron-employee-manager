@@ -15,10 +15,19 @@
           <el-form-item label="地址">
             <el-input v-model="form.address"></el-input>
           </el-form-item>
+          <el-form-item label="邮件">
+            <el-input v-model="form.email"></el-input>
+          </el-form-item>
+          <el-form-item label="电话">
+            <el-input v-model="form.tel"></el-input>
+          </el-form-item>
+          <el-form-item label="技能">
+            <el-input v-model="form.spcialty"></el-input>
+          </el-form-item>
           <el-form-item label="权限">
             <el-select v-model="form.authority" placeholder="选择权限">
-              <el-option label="管理员" value="1"></el-option>
-              <el-option label="普通用户" value="0"></el-option>
+              <el-option label="管理员" :value="1"></el-option>
+              <el-option label="普通用户" :value="0"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="生日">
@@ -28,18 +37,36 @@
           </el-form-item>
           <el-form-item label="岗位">
             <el-select v-model="form.department" placeholder="选择部门">
-              <el-option label="开发部" value="1"></el-option>
-              <el-option label="销售部" value="0"></el-option>
+              <el-option
+                v-for="(department, index) in departments"
+                :label="department.name"
+                :value="department.id"
+                :key="index"
+              ></el-option>
             </el-select>
             <el-select v-model="form.job" placeholder="选择工作">
-              <el-option label="架构师" value="1"></el-option>
-              <el-option label="程序员" value="0"></el-option>
+              <el-option
+                v-for="(job, index) in jobs"
+                :label="job.description"
+                :value="job.code"
+                :key="index"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="学历">
+            <el-select v-model="form.eduLevel" placeholder="选择学历">
+              <el-option
+                v-for="(eduLevel, index) in eduLevels"
+                :label="eduLevel.description"
+                :value="eduLevel.code"
+                :key="index"
+              ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="性别">
             <el-radio-group v-model="form.sex">
-              <el-radio label="男"></el-radio>
-              <el-radio label="女"></el-radio>
+              <el-radio :label="1">男</el-radio>
+              <el-radio :label="0">女</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="简介">
@@ -55,30 +82,43 @@
         <el-avatar shape="square" :size="200" :src="url"></el-avatar>
       </div>
     </div>
+    <br />
+    <br />
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
+  created() {
+    // 声命周期钩子函数
+    axios.get("http://localhost:8090/employee/otherInfo").then(resp => {
+      console.log(resp);
+      this.jobs = resp.data.data.jobs;
+      this.departments = resp.data.data.departments;
+      this.eduLevels = resp.data.data.eduLevels;
+    });
+  },
   data() {
     return {
       form: {
-        address: "张家界",
-        authority: 1,
-        birthday: "2019-12-20",
-        department: "开发部",
-        eduLevel: "大本",
-        email: "dd@qq.com",
-        id: 28,
-        job: "架构师",
-        name: "郑",
-        password: "123",
-        remark: "哈哈哈哈",
-        sex: 1,
-        spcialty: "java, python",
-        state: "T",
-        tel: "123"
+        address: "",
+        authority: 0,
+        birthday: "",
+        department: null,
+        eduLevel: null,
+        email: "",
+        job: "",
+        name: "",
+        remark: "",
+        sex: null,
+        spcialty: "",
+        tel: ""
       },
+      jobs: [],
+      departments: [],
+      eduLevels: [],
       fits: ["fill"],
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
@@ -87,6 +127,7 @@ export default {
   methods: {
     onSubmit() {
       console.log("submit!");
+      console.log(this.form);
     }
   }
 };
