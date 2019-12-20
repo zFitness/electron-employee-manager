@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu } from 'electron'
+import { app, protocol, BrowserWindow, Menu, Tray } from 'electron'
 import {
     createProtocol,
     installVueDevtools
@@ -9,7 +9,12 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win;
+
+//托盘对象
+var appTray = null;
+
+
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
@@ -47,17 +52,45 @@ function createWindow() {
     }
     // Create the browser window.
     win = new BrowserWindow({
-        width: 1010, height: 670, webPreferences: {
+        width: 1010,
+        height: 670,
+        minHeight: 670,
+        minWidth: 1010,
+        webPreferences: {
             nodeIntegration: true,
             //解决跨域问题
             webSecurity: false
         },
         //设置窗口应用图标, __static 对应 public 目录
-        icon: `${__static}/favicon.ico`,
+        icon: `${__static}/bilibili.png`,
         //关闭系统标题栏
         useContentSize: true,
         frame: false
     })
+
+    // 托盘菜单内容
+    var trayMenuTemplate = [
+        {
+            label: '设置',
+            click: function () { }
+        },
+        {
+            label: '关于',
+            click: function () { }
+        },
+        {
+            label: '退出',
+            click: function () { app.quit() }
+        }
+    ];
+    // 托盘图标
+    appTray = new Tray(`${__static}/bilibili.png`);
+    //图标的上下文菜单
+    const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
+    // 设置托盘图标的悬停提升内容
+    appTray.setToolTip('这是垃圾');
+    // 设置此图标的上下文菜单
+    appTray.setContextMenu(contextMenu);
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
@@ -133,12 +166,9 @@ if (isDevelopment) {
 
 const { ipcMain } = require('electron')
 
-//
-ipcMain.on('something', (event, data) => {
-    console.log(data);
-    event.sender.send('something1', '我是主进程的值');
-})
 
+
+// 放大，缩小，关闭事件机制
 ipcMain.on('min', (event, data) => {
 
     win.minimize();

@@ -22,7 +22,7 @@ module.exports = {
     pluginOptions: {
         win: {
             //设置应用图标
-            icon: './public/favicon.ico'
+            icon: './public/bilibili.png'
         },
         mac: {
             //设置应用图标

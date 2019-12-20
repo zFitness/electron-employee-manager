@@ -39,7 +39,7 @@
           <el-dropdown-item>绑定社交账号</el-dropdown-item>
           <el-dropdown-item>商城</el-dropdown-item>
 
-          <el-dropdown-item divided>注销</el-dropdown-item>
+          <el-dropdown-item divided command="d">注销</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <!-- 放大，缩小，关闭按钮 -->
@@ -68,6 +68,9 @@ export default {
       switch (command) {
         case "a":
           this.$router.push("/userInfo");
+          break;
+        case "d":
+          this.$router.push("/login");
           break;
       }
     }

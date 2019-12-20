@@ -9,30 +9,37 @@
       border
       v-loading="loading"
     >
-      <el-table-column type="selection"></el-table-column>
-      <el-table-column label="日期" sortable>
+      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column prop="name" label="姓名" fixed></el-table-column>
+      <el-table-column prop="sex" label="性别">
+        <template slot-scope="scope">{{ scope.row.sex ? '男': '女' }}</template>
+      </el-table-column>
+      <el-table-column prop="tel" label="电话"></el-table-column>
+      <el-table-column prop="email" label="邮件"></el-table-column>
+      <el-table-column prop="address" label="住址"></el-table-column>
+      <el-table-column prop="eduLevel" label="学历"></el-table-column>
+      <el-table-column prop="department" label="部门"></el-table-column>
+      <el-table-column label="生日" sortable>
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span style="margin-left: 10px">{{ scope.row.birthday }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
       <el-table-column
         prop="tag"
-        label="标签"
-        :filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"
+        label="工作"
+        :filters="[{ text: '架构师', value: '架构师' }, { text: '开发', value: '开发' }]"
         :filter-method="filterTag"
         filter-placement="bottom-end"
       >
         <template slot-scope="scope">
           <el-tag
-            :type="scope.row.tag === '家' ? 'primary' : 'success'"
+            :type="scope.row.job === '架构师' ? 'primary' : 'success'"
             disable-transitions
-          >{{scope.row.tag}}</el-tag>
+          >{{scope.row.job}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="300">
+      <el-table-column label="操作" width="120" fixed="right">
         <template slot="header">
           <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
         </template>
@@ -54,11 +61,12 @@
     <el-pagination
       background
       layout="prev, pager, next"
-      :total="11"
-      :page-size="10"
-      :current-page="1"
+      :total="total"
+      :page-size="size"
+      :current-page="current"
       :hide-on-single-page="true"
       @current-change="currentChange"
+      class="pagination"
     ></el-pagination>
     <!-- 编辑框 -->
     <el-dialog title="收货地址" :visible.sync="dialogFormVisible" :modal="false">
@@ -85,16 +93,15 @@
 
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄",
-      tag: "家"
-    };
     return {
-      tableData: Array(10).fill(item),
+      tableData: [],
+      current: 1,
+      size: 7,
+      total: 0,
       search: "",
       loading: false,
       dialogFormVisible: false,
@@ -111,7 +118,27 @@ export default {
       formLabelWidth: "120px"
     };
   },
+  created() {
+    // 声命周期钩子函数
+    this.listEmployees();
+  },
   methods: {
+    listEmployees() {
+      axios
+        .get("http://localhost:8090/employee/list/", {
+          params: {
+            current: this.current,
+            size: this.size
+          }
+        })
+        .then(resp => {
+          console.log(resp.data.data.records);
+          this.tableData = resp.data.data.records;
+          this.current = resp.data.data.current;
+          this.size = resp.data.data.size;
+          this.total = resp.data.data.total;
+        });
+    },
     handleClick(row) {
       console.log(row);
     },
@@ -130,18 +157,16 @@ export default {
     },
     currentChange(current) {
       //跳转指定页面
-      console.log("cc");
+      this.current = current;
       console.log(current);
+      this.listEmployees();
     }
-    // prevClick(current) {
-    //   console.log(current); //跳转上一页
-    // },
-    // nextClick(current) {
-    //   console.log(current); //跳转下一页
-    // }
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+.pagination {
+  margin-top: 20px;
+}
 </style>

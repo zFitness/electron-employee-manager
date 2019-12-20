@@ -16,9 +16,9 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/User.vue')
       },
       {
-        path: '/user2',
-        name: 'user2',
-        component: () => import(/* webpackChunkName: "about" */ '../views/User2.vue')
+        path: '/job',
+        name: 'job',
+        component: () => import(/* webpackChunkName: "about" */ '../views/job/job.vue')
       },
       {
         // 关于应用页面
@@ -43,11 +43,39 @@ const routes = [
     path: '/music',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
   }
 ]
 
 const router = new VueRouter({
   routes
-})
+});
+
+// 导航守卫
+// 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  console.log(from);
+  if (to.path == '/login') {
+    console.log("登录页面");
+    next();
+  } else {
+    let token = localStorage.getItem('Authorization');
+    console.log(token);
+    // 这个 null 不是字符串 'null'
+    if (token == null || token == '') {
+      console.log('跳转页面')
+      // 如果没有token， 即没有登录， 则跳转登录页面
+      // next('/login');
+      next();
+    } else {
+      next();
+    }
+  }
+});
 
 export default router

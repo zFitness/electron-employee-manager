@@ -1,6 +1,7 @@
 {
-  "name": "electron-vue-demo",
+  "name": "my-laji",
   "version": "0.1.0",
+  "author": "zfitness <zhengmiaode@hotmail.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

@@ -12,7 +12,8 @@ import axios from 'axios'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
-
+//把vuex定义成全局组件
+Vue.prototype.$store = store
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location, onResolve, onReject) {
