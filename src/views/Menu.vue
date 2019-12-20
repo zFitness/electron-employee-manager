@@ -14,7 +14,7 @@
           <el-menu-item index="1-1" @click="openPage(1)">员工列表</el-menu-item>
           <el-menu-item index="1-2" @click="openPage(2)">用户列表2</el-menu-item>
           <el-menu-item index="1-2" @click="openPage(4)">用户信息</el-menu-item>
-          <el-menu-item index="1-2" @click="openPage(5)">编辑用户</el-menu-item>
+          <el-menu-item index="1-2" @click="openPage(5)">增加用户</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="2">
@@ -65,7 +65,7 @@ export default {
           this.$router.push("/userInfo");
           break;
         case 5:
-          this.$router.push("/userEdit");
+          this.$router.push("/userAdd");
           break;
       }
     }

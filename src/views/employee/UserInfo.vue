@@ -7,8 +7,8 @@
       </div>
     </div>
     <div class="info">
-      <div class="name">
-        <div class="left">
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
           <span>{{ user.name }} &emsp;</span>
           <span>
             <i
@@ -16,24 +16,45 @@
               style="color:#409EFF;font-size:28px"
             ></i>
           </span>
+          <el-button style="float: right; padding: 3px 0" type="text">编辑个人信息</el-button>
         </div>
-        <div class="right">
-          <button @click="edit">编辑个人资料</button>
+        <div>
+          地区：
+          <span>{{ user.address }}</span>
         </div>
-      </div>
-      <hr />
-      <div>
-        地区：
-        <span>{{ user.address }}</span>
-      </div>
-      <div>
-        技能：
-        <span>{{ user.spcialty }}</span>
-      </div>
-      <div>
-        个人介绍：
-        <span>我是一个唯物主义者。</span>
-      </div>
+        <div>
+          权限：
+          <span>{{ user.authority?'管理员':'普通用户' }}</span>
+        </div>
+        <div>
+          部门：
+          <span>{{ user.department }}</span>
+        </div>
+        <div>
+          学历：
+          <span>{{ user.eduLevel }}</span>
+        </div>
+        <div>
+          职务：
+          <span>{{ user.job }}</span>
+        </div>
+        <div>
+          电话：
+          <span>{{ user.tel }}</span>
+        </div>
+        <div>
+          邮箱：
+          <span>{{ user.email }}</span>
+        </div>
+        <div>
+          技能：
+          <span>{{ user.spcialty }}</span>
+        </div>
+        <div>
+          个人介绍：
+          <span>{{ user.remark }}</span>
+        </div>
+      </el-card>
     </div>
   </div>
 </template>

@@ -132,7 +132,11 @@ export default {
           })
           .then(resp => {
             if (resp.data.code == 200) {
-              this.$message("删除成功");
+              this.$notify({
+                title: "成功",
+                message: "删除成功",
+                type: "success"
+              });
               this.listEmployees();
             }
           });

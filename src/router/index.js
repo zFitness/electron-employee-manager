@@ -30,11 +30,12 @@ const routes = [
         path: '/userInfo',
         name: 'userInfo',
         component: () => import(/* webpackChunkName: "about" */ '../views/employee/UserInfo.vue')
-      }, {
+      },
+      {
         // 编辑用户信息页面
-        path: '/userEdit',
-        name: 'userEdit',
-        component: () => import(/* webpackChunkName: "about" */ '../views/employee/UserEdit.vue')
+        path: '/userAdd',
+        name: 'userAdd',
+        component: () => import('../views/employee/UserAdd.vue')
       }
     ]
   },
