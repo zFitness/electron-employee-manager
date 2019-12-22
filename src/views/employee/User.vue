@@ -19,7 +19,7 @@
           <el-button type="danger" @click="listEmployees">重置</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="listEmployees">全部辞退</el-button>
+          <el-button type="primary" @click="listEmployees">辞退选中</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -82,8 +82,6 @@
       @current-change="currentChange"
       class="pagination"
     ></el-pagination>
-
-    <h1>copyright</h1>
   </div>
 </template>
 
@@ -131,6 +129,9 @@ export default {
     //操作栏处理函数
     handleClick(i, row) {
       console.log(row);
+      if (i == 2) {
+        this.$router.push({ name: "userEdit", params: { id: row.id } });
+      }
       if (i == 3) {
         axios
           .get("http://localhost:8090/employee/dismiss/", {

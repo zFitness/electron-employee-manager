@@ -32,10 +32,16 @@ const routes = [
         component: () => import('../views/employee/UserInfo.vue')
       },
       {
-        // 编辑用户信息页面
+        // 增加员工页面
         path: '/userAdd',
         name: 'userAdd',
         component: () => import('../views/employee/UserAdd.vue')
+      },
+      {
+        // 编辑用户信息页面
+        path: '/userEdit/:id',
+        name: 'userEdit',
+        component: () => import('../views/employee/UserEdit.vue')
       },
       {
         // 部门列表
