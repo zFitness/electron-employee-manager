@@ -29,13 +29,24 @@ const routes = [
         // 用户信息页面
         path: '/userInfo',
         name: 'userInfo',
-        component: () => import(/* webpackChunkName: "about" */ '../views/employee/UserInfo.vue')
+        component: () => import('../views/employee/UserInfo.vue')
       },
       {
         // 编辑用户信息页面
         path: '/userAdd',
         name: 'userAdd',
         component: () => import('../views/employee/UserAdd.vue')
+      },
+      {
+        // 部门列表
+        path: '/deptlist',
+        name: 'deptlist',
+        component: () => import('../views/department/Department.vue')
+      },
+      {
+        path: '/personnelList',
+        name: 'personnelList',
+        component: () => import('../views/personnel/List.vue')
       }
     ]
   },

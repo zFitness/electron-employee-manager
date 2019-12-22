@@ -2,17 +2,24 @@
   <div id="userList">
     <div class="searchBar">
       <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
+        <el-form-item label="员工号">
+          <el-input v-model="formInline.id" placeholder="员工号"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="danger" @click="search(1)" icon="el-icon-search"></el-button>
+        </el-form-item>
+
         <el-form-item label="姓名">
           <el-input v-model="formInline.name" placeholder="姓名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="danger" @click="search">查询</el-button>
+          <el-button type="danger" @click="search(2)" icon="el-icon-search"></el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="danger" @click="listEmployees">全部信息</el-button>
+          <el-button type="danger" @click="listEmployees">重置</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="listEmployees">删除选中</el-button>
+          <el-button type="primary" @click="listEmployees">全部辞退</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -54,11 +61,12 @@
           <el-button @click="handleClick(1, scope.row)" type="text" size="small">查看</el-button>
           <el-button type="text" size="small" @click="handleClick(2, scope.row)">编辑</el-button>
           <el-popconfirm
-            title="确定删除吗？"
+            title="确定辞退吗？"
             style="margin-left:5px"
             @onConfirm="handleClick(3, scope.row)"
+            v-if="scope.row.state == 'T'"
           >
-            <el-button slot="reference" size="small" type="text">删除</el-button>
+            <el-button slot="reference" size="small" type="text">辞退</el-button>
           </el-popconfirm>
         </template>
       </el-table-column>
@@ -125,21 +133,31 @@ export default {
       console.log(row);
       if (i == 3) {
         axios
-          .get("http://localhost:8090/employee/delete/", {
+          .get("http://localhost:8090/employee/dismiss/", {
             params: {
               id: row.id
             }
           })
-          .then(resp => {
-            if (resp.data.code == 200) {
+          .then(
+            resp => {
+              if (resp.data.code == 200) {
+                this.$notify({
+                  title: "成功",
+                  message: "辞退成功",
+                  type: "success"
+                });
+                this.listEmployees();
+              } else {
+              }
+            },
+            error => {
               this.$notify({
-                title: "成功",
-                message: "删除成功",
-                type: "success"
+                title: "失败",
+                message: "辞退成功",
+                type: "error"
               });
-              this.listEmployees();
             }
-          });
+          );
       }
     },
     handleSelectionChange() {},
@@ -155,7 +173,25 @@ export default {
       console.log(current);
       this.listEmployees();
     },
-    search() {}
+    search(i) {
+      if (i == 2) {
+        axios
+          .get("http://localhost:8090/employee/search/", {
+            params: {
+              current: this.current,
+              size: this.size,
+              name: this.formInline.name
+            }
+          })
+          .then(resp => {
+            console.log(resp.data.data.records);
+            this.tableData = resp.data.data.records;
+            this.current = resp.data.data.current;
+            this.size = resp.data.data.size;
+            this.total = resp.data.data.total;
+          });
+      }
+    }
   }
 };
 </script>
