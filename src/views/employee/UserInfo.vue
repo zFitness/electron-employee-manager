@@ -16,7 +16,7 @@
               style="color:#409EFF;font-size:28px"
             ></i>
           </span>
-          <el-button style="float: right; padding: 3px 0" type="text">编辑个人信息</el-button>
+          <el-button style="float: right; padding: 3px 0" type="text" @click="editUser">编辑个人信息</el-button>
         </div>
         <div>
           地区：
@@ -60,7 +60,18 @@
 </template>
 
 <script>
+import Axios from "axios";
+import { mapMutations, mapState } from "vuex";
 export default {
+  computed: mapState(["userId", "isSuper"]), //得到vuex 里面的用户信息
+  created() {
+    Axios.get(
+      "http://localhost:8090/employee/getUserById?id=" + this.$route.params.id
+    ).then(resp => {
+      console.log(resp);
+      this.user = resp.data;
+    });
+  },
   data() {
     return {
       fits: ["fill"],
@@ -86,8 +97,11 @@ export default {
     };
   },
   methods: {
-    edit() {
-      this.$router.push("/userEdit");
+    editUser() {
+      this.$router.push({
+        name: "editMe",
+        params: { id: this.$route.params.id }
+      });
     }
   }
 };

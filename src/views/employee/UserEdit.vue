@@ -8,33 +8,45 @@
     <!-- 编辑表单 -->
     <div class="box">
       <div class="form">
-        <el-form ref="form" :model="form" :rules="rules" label-width="60px" size="mini">
+        <el-form
+          ref="form"
+          :model="form"
+          :rules="rules"
+          label-width="60px"
+          size="mini"
+          :inline="true"
+        >
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="地址">
             <el-input v-model="form.address"></el-input>
           </el-form-item>
+          <br />
           <el-form-item label="邮件" prop="email">
             <el-input v-model="form.email"></el-input>
           </el-form-item>
           <el-form-item label="电话" prop="tel">
             <el-input v-model="form.tel"></el-input>
           </el-form-item>
+          <br />
           <el-form-item label="技能">
             <el-input v-model="form.spcialty"></el-input>
           </el-form-item>
+          <br />
           <el-form-item label="权限">
             <el-select v-model="form.authority" placeholder="选择权限">
               <el-option label="管理员" :value="1"></el-option>
               <el-option label="普通用户" :value="0"></el-option>
             </el-select>
           </el-form-item>
+          <br />
           <el-form-item label="生日">
             <el-col :span="11">
               <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday"></el-date-picker>
             </el-col>
           </el-form-item>
+          <br />
           <el-form-item label="部门" prop="department">
             <el-select v-model="form.department" placeholder="选择部门">
               <el-option
@@ -55,6 +67,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
+          <br />
           <el-form-item label="学历" prop="eduLevel">
             <el-select v-model="form.eduLevel" placeholder="选择学历">
               <el-option
@@ -65,18 +78,21 @@
               ></el-option>
             </el-select>
           </el-form-item>
+          <br />
           <el-form-item label="性别" prop="sex">
             <el-radio-group v-model="form.sex">
               <el-radio :label="1">男</el-radio>
               <el-radio :label="0">女</el-radio>
             </el-radio-group>
           </el-form-item>
+          <br />
           <el-form-item label="简介">
             <el-input type="textarea" v-model="form.remark"></el-input>
           </el-form-item>
+          <br />
           <el-form-item>
             <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="reset('form')">重置</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -111,9 +127,7 @@ export default {
           )
           .then(resp => {
             console.log(resp);
-            for (let a in this.form) {
-              this.form[a] = resp.data[a];
-            }
+            this.form = resp.data;
             console.log(this.form);
           });
       }
@@ -179,7 +193,7 @@ export default {
           axios
             .request({
               method: "post",
-              url: "http://localhost:8090/employee/add",
+              url: "http://localhost:8090/employee/update",
               data: this.form,
               headers: {
                 "Content-Type": "application/json;charset=UTF-8"

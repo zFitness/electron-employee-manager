@@ -1,7 +1,7 @@
 <template>
   <div class="userEdit">
     <div>
-      <span>新增员工</span>
+      <span>编辑员工信息</span>
       <el-divider></el-divider>
     </div>
 
@@ -19,6 +19,9 @@
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
+          <el-form-item label="密码">
+            <el-input v-model="form.password"></el-input>
+          </el-form-item>
           <el-form-item label="地址">
             <el-input v-model="form.address"></el-input>
           </el-form-item>
@@ -34,38 +37,11 @@
             <el-input v-model="form.spcialty"></el-input>
           </el-form-item>
           <br />
-          <el-form-item label="权限">
-            <el-select v-model="form.authority" placeholder="选择权限">
-              <el-option label="管理员" :value="1"></el-option>
-              <el-option label="普通用户" :value="0"></el-option>
-            </el-select>
-          </el-form-item>
           <br />
           <el-form-item label="生日">
             <el-col :span="11">
               <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday"></el-date-picker>
             </el-col>
-          </el-form-item>
-          <br />
-          <el-form-item label="部门" prop="department">
-            <el-select v-model="form.department" placeholder="选择部门">
-              <el-option
-                v-for="(department, index) in departments"
-                :label="department.name"
-                :value="department.id"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="工作" prop="job">
-            <el-select v-model="form.job" placeholder="选择工作">
-              <el-option
-                v-for="(job, index) in jobs"
-                :label="job.description"
-                :value="job.code"
-                :key="index"
-              ></el-option>
-            </el-select>
           </el-form-item>
           <br />
           <el-form-item label="学历" prop="eduLevel">
@@ -91,7 +67,7 @@
           </el-form-item>
           <br />
           <el-form-item>
-            <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
+            <el-button type="primary" @click="onSubmit('form')">立即修改</el-button>
             <el-button @click="reset('form')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -107,8 +83,10 @@
 
 <script>
 import axios from "axios";
+import { mapMutations, mapState } from "vuex";
 
 export default {
+  computed: mapState(["userId", "isSuper"]), //得到vuex 里面的用户信息
   created() {
     // 声命周期钩子函数, 用于获取部门，工作，学历列表
     axios.get("http://localhost:8090/employee/otherInfo").then(resp => {
@@ -116,6 +94,21 @@ export default {
       this.jobs = resp.data.data.jobs;
       this.departments = resp.data.data.departments;
       this.eduLevels = resp.data.data.eduLevels;
+
+      // 获取用户信息
+      console.log(this.$route.params.id);
+      if (this.$route.params.id != null) {
+        axios
+          .get(
+            "http://localhost:8090/employee/getEmployeeById?id=" +
+              this.$route.params.id
+          )
+          .then(resp => {
+            console.log(resp);
+            this.form = resp.data;
+            console.log(this.form);
+          });
+      }
     });
   },
   data() {
@@ -170,9 +163,6 @@ export default {
     };
   },
   methods: {
-    reset(form) {
-      this.$refs[form].resetFields();
-    },
     onSubmit(form) {
       console.log("submit!");
       this.$refs[form].validate(valid => {
@@ -181,7 +171,7 @@ export default {
           axios
             .request({
               method: "post",
-              url: "http://localhost:8090/employee/add",
+              url: "http://localhost:8090/employee/update",
               data: this.form,
               headers: {
                 "Content-Type": "application/json;charset=UTF-8"

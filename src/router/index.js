@@ -27,7 +27,7 @@ const routes = [
       },
       {
         // 用户信息页面
-        path: '/userInfo',
+        path: '/userInfo/:id',
         name: 'userInfo',
         component: () => import('../views/employee/UserInfo.vue')
       },
@@ -42,6 +42,12 @@ const routes = [
         path: '/userEdit/:id',
         name: 'userEdit',
         component: () => import('../views/employee/UserEdit.vue')
+      },
+      {
+        // 编辑个人基本信息页面
+        path: '/editMe/:id',
+        name: 'editMe',
+        component: () => import('../views/employee/UserEdit2.vue')
       },
       {
         // 部门列表
@@ -76,14 +82,14 @@ router.beforeEach((to, from, next) => {
     console.log("登录页面");
     next();
   } else {
-    let token = localStorage.getItem('Authorization');
+    let token = sessionStorage.getItem('token');
     console.log(token);
     // 这个 null 不是字符串 'null'
     if (token == null || token == '') {
       console.log('跳转页面')
       // 如果没有token， 即没有登录， 则跳转登录页面
-      // next('/login');
-      next();
+      next('/login');
+      // next();
     } else {
       next();
     }

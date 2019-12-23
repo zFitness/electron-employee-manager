@@ -129,6 +129,9 @@ export default {
     //操作栏处理函数
     handleClick(i, row) {
       console.log(row);
+      if (i == 1) {
+        this.$router.push({ name: "userInfo", params: { id: row.id } });
+      }
       if (i == 2) {
         this.$router.push({ name: "userEdit", params: { id: row.id } });
       }

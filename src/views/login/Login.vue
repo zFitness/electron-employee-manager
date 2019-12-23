@@ -64,9 +64,18 @@ export default {
           url: "http://localhost:8090/login",
           data: params
         }).then(res => {
+          console.log(res);
           console.log(res.data.data.token);
-          _this.changeLogin(res.data.data.token);
-          _this.$router.push("/");
+          if (res.data.code == 200) {
+            let user = {
+              token: res.data.data.token,
+              id: res.data.data.userId,
+              super: res.data.data.super
+            };
+            _this.changeLogin(user);
+            console.log("aaa");
+            _this.$router.push("/");
+          }
         });
       }
     }

@@ -30,7 +30,8 @@
         placement="bottom-end"
       >
         <span class="el-dropdown-link">
-          管理员
+          <span v-if="isSuper">管理员</span>
+          <span v-else>用户</span>
           <i class="el-icon-caret-bottom"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -51,11 +52,13 @@
 <script>
 const { ipcRenderer } = require("electron");
 import mmcButton from "../components/max-min-close";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   components: {
     mmcButton
   },
+  computed: mapState(["userId", "isSuper"]), //得到vuex 里面的用户信息
   methods: {
     goback() {
       this.$router.go(-1);
@@ -67,9 +70,10 @@ export default {
       console.log("111");
       switch (command) {
         case "a":
-          this.$router.push("/userInfo");
+          this.$router.push({ name: "userInfo", params: { id: this.userId } });
           break;
         case "d":
+          sessionStorage.setItem("token", "");
           this.$router.push("/login");
           break;
       }
