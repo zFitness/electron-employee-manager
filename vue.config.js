@@ -28,7 +28,7 @@ module.exports = {
             //设置应用图标
             icon: './public/favicon.ico'
         },
-        productName: 'AppDemo'
+        productName: '管理系统'
     }
 
 }

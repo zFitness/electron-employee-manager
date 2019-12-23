@@ -5,6 +5,9 @@ import Router from 'vue-router'
 import store from './store'
 import './plugins/element.js'
 
+// 导入iconfont 的自定义图标
+import './assets/iconfont/iconfont.css';
+
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';

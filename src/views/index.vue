@@ -56,7 +56,7 @@ export default {
 
 .el-aside {
   color: #333;
-  width: 200px;
+  /* width: 200px; */
 }
 .container {
   width: 100vw;

@@ -33,7 +33,7 @@
 
     <!-- 软件设置 -->
     <button class="min">
-      <i class="el-icon-setting"></i>
+      <i class="el-icon-setting el-icon-user iconfont icon-shezhi"></i>
     </button>
     <el-divider direction="vertical" class="el-divider"></el-divider>
     <!-- 最小化按钮 -->
@@ -42,7 +42,7 @@
     </button>
     <!--最大化按钮  -->
     <button @click="max" class="max">
-      <i class="el-icon-plus"></i>
+      <i class="el-icon-plus iconfont icon-zuidahua"></i>
     </button>
     <!-- 关闭按钮 -->
     <button @click="close" class="close">
