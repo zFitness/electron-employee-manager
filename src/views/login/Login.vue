@@ -6,10 +6,15 @@
           <h2>登录</h2>
         </div>
         <div class="field">
-          <input type="email" placeholder="邮箱" v-model="form.email" />
+          <input type="email" placeholder="邮箱" v-model="form.email" v-on:keyup.enter="submit" />
         </div>
         <div class="field">
-          <input type="password" placeholder="用户密码" v-model="form.password" />
+          <input
+            type="password"
+            placeholder="用户密码"
+            v-model="form.password"
+            v-on:keyup.enter="submit"
+          />
         </div>
         <div class="field">
           <input type="button" @click="submit" value="确认" />
@@ -51,8 +56,11 @@ export default {
     },
     ...mapMutations(["changeLogin"]),
     submit() {
+      var regex = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
       if (this.form.email == "" || this.form.password == "") {
         this.$message("请输入正确的内容");
+      } else if (!regex.test(this.form.email)) {
+        this.$message.warning("请输入正确的邮箱");
       } else {
         let _this = this;
         let params = new URLSearchParams();
@@ -63,24 +71,28 @@ export default {
           method: "POST",
           url: this.$global_msg.host + "login",
           data: params
-        }).then(res => {
-          console.log(res);
-          console.log(res.data.code);
-          if (res.data.code == 200) {
-            let user = {
-              token: res.data.data.token,
-              id: res.data.data.userId,
-              super: res.data.data.super
-            };
-            _this.changeLogin(user);
-            console.log("aaa");
-            _this.$router.push("/");
-          } else if (res.data.code == 404) {
-            this.$message.error(res.data.msg);
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        });
+        })
+          .then(res => {
+            console.log(res);
+            console.log(res.data.code);
+            if (res.data.code == 200) {
+              let user = {
+                token: res.data.data.token,
+                id: res.data.data.userId,
+                super: res.data.data.super
+              };
+              _this.changeLogin(user);
+              console.log("aaa");
+              _this.$router.push("/");
+            } else if (res.data.code == 404) {
+              this.$message.error(res.data.msg);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            this.$message.error("请检查网络");
+          });
       }
     }
   }

@@ -206,20 +206,20 @@ export default {
                 if (resp.data.code == 200) {
                   this.$notify({
                     title: "成功",
-                    message: "插入成功了",
+                    message: "更新成功了",
                     type: "success"
                   });
                 } else {
                   this.$notify.error({
                     title: "失败",
-                    message: "插入失败了"
+                    message: "更新失败了"
                   });
                 }
               },
               error => {
                 this.$notify.error({
                   title: "失败",
-                  message: "插入失败了"
+                  message: "更新失败了"
                 });
               }
             );

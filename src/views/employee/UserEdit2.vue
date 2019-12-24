@@ -1,7 +1,7 @@
 <template>
   <div class="userEdit">
     <div>
-      <span>编辑员工信息</span>
+      <span>编辑个人信息</span>
       <el-divider></el-divider>
     </div>
 
@@ -107,6 +107,7 @@ export default {
           .then(resp => {
             console.log(resp);
             this.form = resp.data;
+            this.form.password = "";
             console.log(this.form);
           });
       }
@@ -184,20 +185,20 @@ export default {
                 if (resp.data.code == 200) {
                   this.$notify({
                     title: "成功",
-                    message: "插入成功了",
+                    message: "编辑成功了",
                     type: "success"
                   });
                 } else {
                   this.$notify.error({
                     title: "失败",
-                    message: "插入失败了"
+                    message: "编辑失败了"
                   });
                 }
               },
               error => {
                 this.$notify.error({
                   title: "失败",
-                  message: "插入失败了"
+                  message: "编辑失败了"
                 });
               }
             );
