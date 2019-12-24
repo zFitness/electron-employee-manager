@@ -8,6 +8,7 @@ const routes = [
     path: '/',
     name: 'index',
     component: () => import('@/views/index.vue'),
+    // 默认跳转的子路由
     redirect: '/welcome',
     children: [
       {
