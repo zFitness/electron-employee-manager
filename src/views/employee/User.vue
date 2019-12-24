@@ -64,7 +64,7 @@
             title="确定辞退吗？"
             style="margin-left:5px"
             @onConfirm="handleClick(3, scope.row)"
-            v-if="scope.row.state == 'T'"
+            v-if="scope.row.state == 'T' && scope.row.id != userId"
           >
             <el-button slot="reference" size="small" type="text">辞退</el-button>
           </el-popconfirm>
@@ -88,10 +88,12 @@
 
 <script>
 import axios from "axios";
-
+import { mapMutations, mapState } from "vuex";
 export default {
+  computed: mapState(["userId", "isSuper"]),
   data() {
     return {
+      myId: this.userId,
       tableData: [],
       current: 1, //当前页面
       size: 10, //每页显示条数

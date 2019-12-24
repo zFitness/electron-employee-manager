@@ -57,11 +57,3 @@ npm run electron:serve
 ```
 npm run electron:build
 ```
-
-
-
-这是本人自己开发的小项目， 如果对您有用，可以请我喝一杯咖啡。
-
-![](./back/alipay.png)
-
-![](./back/wechatpay.png)
