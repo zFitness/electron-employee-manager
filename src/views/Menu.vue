@@ -6,7 +6,7 @@
       text-color="#5C5C5C"
       active-text-color="#000000"
     >
-      <el-menu-item index="2">
+      <el-menu-item index="2" @click="openPage(9)">
         <i class="el-icon-eleme iconfont icon-panel"></i>
         <span slot="title">首页</span>
       </el-menu-item>
@@ -74,6 +74,9 @@ export default {
           break;
         case 8:
           this.$router.push({ name: "editMe", params: { id: this.userId } });
+          break;
+        case 9:
+          this.$router.push("/welcome");
           break;
       }
     }

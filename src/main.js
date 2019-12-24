@@ -7,14 +7,14 @@ import './plugins/element.js'
 
 // 导入iconfont 的自定义图标
 import './assets/iconfont/iconfont.css';
-
+import Pie from 'v-charts/lib/pie.common';
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
-
+Vue.component(Pie.name, Pie);
 //把vuex定义成全局组件
 Vue.prototype.$store = store
 
