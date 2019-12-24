@@ -26,6 +26,7 @@
 本项目分为前端和后端部分， 所以你需要分别安装其依赖。
 
 前端依赖需要使用 npm 来安装， 后端需要maven。
+后端部分： [springboot-employeemanger](https://github.com/zFitness/springboot-employeemanager)
 
 > 本项目里面back 目录是存放 README.md里面的图片的，可以删除。
 
