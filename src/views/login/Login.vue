@@ -61,11 +61,11 @@ export default {
         //踩坑了， axios 的post请求默认 提交的是 application/json, 而 springmvc 得接收post请求是 x-www-form-urlencoded
         axios({
           method: "POST",
-          url: "http://localhost:8090/login",
+          url: this.$global_msg.host + "login",
           data: params
         }).then(res => {
           console.log(res);
-          console.log(res.data.data.token);
+          console.log(res.data.code);
           if (res.data.code == 200) {
             let user = {
               token: res.data.data.token,
@@ -75,6 +75,10 @@ export default {
             _this.changeLogin(user);
             console.log("aaa");
             _this.$router.push("/");
+          } else if (res.data.code == 404) {
+            this.$message.error(res.data.msg);
+          } else {
+            this.$message.error(res.data.msg);
           }
         });
       }

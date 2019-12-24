@@ -50,7 +50,7 @@ export default {
     };
   },
   created() {
-    axios.get("http://localhost:8090/department/list").then(resp => {
+    axios.get(this.$global_msg.host + "department/list").then(resp => {
       console.log(resp);
       this.departments = resp.data.data;
     });

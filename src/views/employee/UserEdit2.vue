@@ -89,7 +89,7 @@ export default {
   computed: mapState(["userId", "isSuper"]), //得到vuex 里面的用户信息
   created() {
     // 声命周期钩子函数, 用于获取部门，工作，学历列表
-    axios.get("http://localhost:8090/employee/otherInfo").then(resp => {
+    axios.get(this.$global_msg.host + "employee/otherInfo").then(resp => {
       console.log(resp);
       this.jobs = resp.data.data.jobs;
       this.departments = resp.data.data.departments;
@@ -100,7 +100,8 @@ export default {
       if (this.$route.params.id != null) {
         axios
           .get(
-            "http://localhost:8090/employee/getEmployeeById?id=" +
+            this.$global_msg.host +
+              "employee/getEmployeeById?id=" +
               this.$route.params.id
           )
           .then(resp => {
@@ -171,7 +172,7 @@ export default {
           axios
             .request({
               method: "post",
-              url: "http://localhost:8090/employee/update",
+              url: this.$global_msg.host + "employee/update",
               data: this.form,
               headers: {
                 "Content-Type": "application/json;charset=UTF-8"

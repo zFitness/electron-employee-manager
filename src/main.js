@@ -17,6 +17,10 @@ Vue.config.productionTip = false
 Vue.component(Pie.name, Pie);
 //把vuex定义成全局组件
 Vue.prototype.$store = store
+// 使用全局变量
+import global_msg from './global.js'   //注意文件路径，实际路径以项目目录结构为准
+Vue.prototype.$global_msg = global_msg;
+
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location, onResolve, onReject) {

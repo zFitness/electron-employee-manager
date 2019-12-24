@@ -64,19 +64,21 @@ export default {
     // 声命周期钩子函数, 用于获取部门，工作，学历列表
     if (this.userId != null) {
       axios
-        .get("http://localhost:8090/employee/getEmployeeById?id=" + this.userId)
+        .get(
+          this.$global_msg.host + "employee/getEmployeeById?id=" + this.userId
+        )
         .then(resp => {
           console.log(resp);
           this.form = resp.data;
           console.log(this.form);
         });
     }
-    axios.get("http://localhost:8090/job/numbers").then(resp => {
+    axios.get(this.$global_msg.host + "job/numbers").then(resp => {
       console.log(resp);
       this.chartData.rows = resp.data.data;
     });
 
-    axios.get("http://localhost:8090/job/welcome").then(resp => {
+    axios.get(this.$global_msg.host + "job/welcome").then(resp => {
       console.log(resp);
       this.numbers.employee = resp.data.data.employeeNumber;
       this.numbers.job = resp.data.data.jobNumber;

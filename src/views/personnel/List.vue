@@ -53,7 +53,7 @@ export default {
       this.listEmployees();
     },
     listEmployees() {
-      Axios.get("http://localhost:8090/personnel/list", {
+      Axios.get(this.$global_msg.host + "personnel/list", {
         current: this.current,
         size: this.size
       }).then(resp => {

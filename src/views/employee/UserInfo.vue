@@ -66,7 +66,7 @@ export default {
   computed: mapState(["userId", "isSuper"]), //得到vuex 里面的用户信息
   created() {
     Axios.get(
-      "http://localhost:8090/employee/getUserById?id=" + this.$route.params.id
+      this.$global_msg.host + "employee/getUserById?id=" + this.$route.params.id
     ).then(resp => {
       console.log(resp);
       this.user = resp.data;

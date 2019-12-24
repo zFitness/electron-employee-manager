@@ -112,7 +112,7 @@ export default {
     // 分页查询
     listEmployees() {
       axios
-        .get("http://localhost:8090/employee/list/", {
+        .get(this.$global_msg.host + "employee/list/", {
           params: {
             current: this.current,
             size: this.size
@@ -137,7 +137,7 @@ export default {
       }
       if (i == 3) {
         axios
-          .get("http://localhost:8090/employee/dismiss/", {
+          .get(this.$global_msg.host + "employee/dismiss/", {
             params: {
               id: row.id
             }
@@ -180,7 +180,7 @@ export default {
     search(i) {
       if (i == 2) {
         axios
-          .get("http://localhost:8090/employee/search/", {
+          .get(this.$global_msg.host + "employee/search/", {
             params: {
               current: this.current,
               size: this.size,
