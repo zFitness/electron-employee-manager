@@ -177,7 +177,6 @@ export default {
       console.log("submit!");
       this.$refs[form].validate(valid => {
         if (valid) {
-          alert("submit!");
           axios
             .request({
               method: "post",
@@ -199,19 +198,22 @@ export default {
                 } else {
                   this.$notify.error({
                     title: "失败",
-                    message: "插入失败了"
+                    message: resp.data.message
                   });
                 }
               },
               error => {
                 this.$notify.error({
                   title: "失败",
-                  message: "插入失败了"
+                  message: "连接服务器失败"
                 });
               }
             );
         } else {
-          console.log("error submit!!");
+          this.$notify.error({
+            title: "失败",
+            message: "表单不合法"
+          });
           return false;
         }
       });

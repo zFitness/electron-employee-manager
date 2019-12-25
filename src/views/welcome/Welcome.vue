@@ -131,6 +131,9 @@ export default {
   margin-right: 10px;
   width: 23%;
   .card-panel {
+    &:hover {
+      background-color: #f8f8f8;
+    }
     height: 108px;
     cursor: pointer;
     display: flex;
