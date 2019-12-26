@@ -190,7 +190,6 @@ export default {
       console.log("submit!");
       this.$refs[form].validate(valid => {
         if (valid) {
-          alert("submit!");
           axios
             .request({
               method: "post",

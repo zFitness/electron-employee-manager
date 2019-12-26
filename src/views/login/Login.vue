@@ -58,7 +58,7 @@ export default {
     ...mapMutations(["changeLogin"]),
     submit() {
       var regex = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
-      if (this.form.email == "" || this.form.password == "") {
+      if (this.form.email == "") {
         this.$message("请输入正确的内容");
       } else if (!regex.test(this.form.email)) {
         this.$message.warning("请输入正确的邮箱");

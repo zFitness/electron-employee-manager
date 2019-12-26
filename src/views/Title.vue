@@ -34,11 +34,11 @@
           <span v-else>用户</span>
           <i class="el-icon-caret-bottom"></i>
         </span>
-        <el-dropdown-menu slot="dropdown">
+        <el-dropdown-menu slot="dropdown" style="top:40px" size="mini">
           <el-dropdown-item disabled>用户菜单</el-dropdown-item>
           <el-dropdown-item command="a">个人信息</el-dropdown-item>
           <el-dropdown-item>绑定社交账号</el-dropdown-item>
-          <el-dropdown-item>商城</el-dropdown-item>
+          <el-dropdown-item command="b">关于</el-dropdown-item>
 
           <el-dropdown-item divided command="d">注销</el-dropdown-item>
         </el-dropdown-menu>
@@ -71,6 +71,9 @@ export default {
       switch (command) {
         case "a":
           this.$router.push({ name: "userInfo", params: { id: this.userId } });
+          break;
+        case "b":
+          this.$router.push({ name: "about" });
           break;
         case "d":
           sessionStorage.setItem("token", "");

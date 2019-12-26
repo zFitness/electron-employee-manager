@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     currentChange(current) {
+      console.log(current);
       //跳转指定页面
       this.current = current;
       console.log(current);
@@ -54,8 +55,10 @@ export default {
     },
     listEmployees() {
       Axios.get(this.$global_msg.host + "personnel/list", {
-        current: this.current,
-        size: this.size
+        params: {
+          current: this.current,
+          size: this.size
+        }
       }).then(resp => {
         console.log(resp);
         this.personnelList = resp.data.data.records;
@@ -69,4 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pagination {
+  margin-top: 10px;
+}
 </style>

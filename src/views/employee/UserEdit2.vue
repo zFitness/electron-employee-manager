@@ -19,7 +19,7 @@
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="密码">
+          <el-form-item label="密码" prop="password">
             <el-input v-model="form.password"></el-input>
           </el-form-item>
           <el-form-item label="地址">
@@ -68,7 +68,6 @@
           <br />
           <el-form-item>
             <el-button type="primary" @click="onSubmit('form')">立即修改</el-button>
-            <el-button @click="reset('form')">重置</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -133,6 +132,7 @@ export default {
       departments: [],
       eduLevels: [],
       rules: {
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
         name: [
           { required: true, message: "请输入姓名", trigger: "blur" },
           { min: 1, max: 40, message: "长度在 1 到 40 个字符", trigger: "blur" }
@@ -169,7 +169,6 @@ export default {
       console.log("submit!");
       this.$refs[form].validate(valid => {
         if (valid) {
-          alert("submit!");
           axios
             .request({
               method: "post",

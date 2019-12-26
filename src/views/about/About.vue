@@ -1,17 +1,19 @@
 <template>
-  <div class="about">
-    这是一个垃圾的系统，非常非常垃圾，哈哈哈哈。
-    <el-timeline>
-      <el-timeline-item
-        v-for="(activity, index) in activities"
-        :key="index"
-        :icon="activity.icon"
-        :type="activity.type"
-        :color="activity.color"
-        :size="activity.size"
-        :timestamp="activity.timestamp"
-      >{{activity.content}}</el-timeline-item>
-    </el-timeline>
+  <div>
+    <div class="about">基于c/s架构的人事管理系统的系统，做的比较粗糙，哈哈哈哈。</div>
+    <h3>前端技术栈:</h3>
+    <ul>
+      <li>html/css/js</li>
+      <li>vue/vuex/vue router</li>
+      <li>electron</li>
+    </ul>
+    <h3>后端技术栈:</h3>
+    <ul>
+      <li>java</li>
+      <li>springboot</li>
+      <li>mybatis/mybatis-plus</li>
+      <li>mysql</li>
+    </ul>
   </div>
 </template>
 
