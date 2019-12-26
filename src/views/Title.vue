@@ -20,7 +20,9 @@
         <el-avatar
           :size="25"
           src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+          v-if="avator_url == null"
         ></el-avatar>
+        <el-avatar :size="25" :src="avator_url" v-else></el-avatar>
       </div>
       <!-- 头像旁边的下拉栏 -->
       <el-dropdown
@@ -58,7 +60,7 @@ export default {
   components: {
     mmcButton
   },
-  computed: mapState(["userId", "isSuper"]), //得到vuex 里面的用户信息
+  computed: mapState(["userId", "isSuper", "avator_url"]), //得到vuex 里面的用户信息
   methods: {
     goback() {
       this.$router.go(-1);

@@ -96,7 +96,8 @@ export default {
         let user = {
           token: data.message.token,
           id: data.message.userId,
-          super: data.message.isSuper
+          super: data.message.isSuper,
+          avator_url: data.message.avator_url
         };
         this.changeLogin(user);
         console.log("aaa");
@@ -143,7 +144,8 @@ export default {
               let user = {
                 token: res.data.data.token,
                 id: res.data.data.userId,
-                super: res.data.data.super
+                super: res.data.data.super,
+                avator_url: null
               };
               _this.changeLogin(user);
               console.log("aaa");
