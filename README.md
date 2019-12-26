@@ -36,7 +36,7 @@
 ## 开始此项目
 * clone 此项目
 ```
-git clone https://gitee.com/zFitness/electron-employee-manager.git
+git clone https://github.com/zFitness/electron-employee-manager.git
 cd electron-employee-manager
 ```
 * 安装npm依赖
