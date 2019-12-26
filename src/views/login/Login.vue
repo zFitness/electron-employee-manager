@@ -32,6 +32,14 @@
         <div class="right-body-content">
           <h1>管理系统</h1>
         </div>
+        <div style="-webkit-app-region: no-drag;">
+          <h2>扫码登录</h2>
+          <img src="../../assets/images/ecode.png" v-if="ecode" />
+          <div v-else>
+            <span>加载二维码中....</span>
+            <el-button icon="el-icon-search" circle @click="initWebSocket"></el-button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -42,15 +50,70 @@ import { mapMutations } from "vuex";
 import axios from "axios";
 const { ipcRenderer } = require("electron");
 export default {
+  created() {
+    this.initWebSocket();
+  },
   data() {
     return {
       form: {
         email: "",
         password: ""
-      }
+      },
+      websock: null,
+      ecode: false
     };
   },
   methods: {
+    initWebSocket() {
+      //初始化weosocket
+      console.log("初始化websocket");
+      const wsuri = this.$global_msg.socket_host + "websocket/login"; //这个地址由后端童鞋提供
+      this.websock = new WebSocket(wsuri);
+      this.websock.onmessage = this.websocketonmessage;
+      this.websock.onopen = this.websocketonopen;
+      this.websock.onerror = this.websocketonerror;
+      this.websock.onclose = this.websocketclose;
+    },
+    websocketonopen() {
+      //连接建立之后执行send方法发送数据
+      console.log("建立连接成功");
+      this.websocketsend("hello");
+      this.ecode = true;
+    },
+    websocketonerror() {
+      //连接建立失败重连
+      this.initWebSocket();
+      this.error = false;
+    },
+    websocketonmessage(e) {
+      //数据接送
+      console.log(e);
+
+      let data = JSON.parse(e.data);
+      if (data != null && data.type == "login") {
+        console.log(data);
+
+        let user = {
+          token: data.message.token,
+          id: data.message.userId,
+          super: data.message.isSuper
+        };
+        this.changeLogin(user);
+        console.log("aaa");
+        this.$router.push("/");
+      } else if (data.type == "error") {
+        this.$message.error(data.message);
+      }
+    },
+    websocketsend(Data) {
+      //数据发送
+      this.websock.send(Data);
+    },
+    websocketclose(e) {
+      //关闭连接
+      console.log("断开连接", e);
+      // this.initWebSocket();
+    },
     close() {
       console.log("close");
       ipcRenderer.send("close");
