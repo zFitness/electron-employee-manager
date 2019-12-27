@@ -63,6 +63,12 @@ const routes = [
         component: () => import('../views/department/Department.vue')
       },
       {
+        // 添加部门
+        path: '/addDept',
+        name: 'addDept',
+        component: () => import('../views/department/Add.vue')
+      },
+      {
         path: '/personnelList',
         name: 'personnelList',
         component: () => import('../views/personnel/List.vue')

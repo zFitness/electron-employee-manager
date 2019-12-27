@@ -47,9 +47,15 @@
       <!-- 图表栏 -->
       <el-divider></el-divider>
       <div class="charts-table">
-        <div>
+        <!-- 饼图 -->
+        <div class="t1">
           <h2>工作人数表</h2>
           <ve-pie :data="chartData"></ve-pie>
+        </div>
+        <!-- 地图 -->
+        <div class="t2">
+          <h2>员工分布表</h2>
+          <ve-map :data="chartData1"></ve-map>
         </div>
       </div>
     </div>
@@ -59,6 +65,7 @@
 import { mapMutations, mapState } from "vuex";
 import axios from "axios";
 export default {
+  //计算属性，监测vuex 数据
   computed: mapState(["userId", "isSuper"]), //得到vuex 里面的用户信息
   created() {
     // 声命周期钩子函数, 用于获取部门，工作，学历列表
@@ -73,11 +80,17 @@ export default {
           console.log(this.form);
         });
     }
+    //饼图数据
     axios.get(this.$global_msg.host + "job/numbers").then(resp => {
       console.log(resp);
       this.chartData.rows = resp.data.data;
     });
-
+    //地图数据
+    axios.get(this.$global_msg.host + "employee/map").then(resp => {
+      console.log(resp);
+      this.chartData1.rows = resp.data.data;
+    });
+    //欢迎页面的数据
     axios.get(this.$global_msg.host + "job/welcome").then(resp => {
       console.log(resp);
       this.numbers.employee = resp.data.data.employeeNumber;
@@ -88,6 +101,15 @@ export default {
   },
   data() {
     return {
+      chartData1: {
+        columns: ["address", "number"],
+        rows: [
+          { address: "吉林", number: 123 },
+          { address: "北京", number: 2123 },
+          { address: "上海", number: 1243 },
+          { address: "浙江", number: 5123 }
+        ]
+      },
       numbers: {
         employee: 0,
         department: 0,
@@ -172,6 +194,16 @@ export default {
 }
 
 .charts-table {
-  // display: flex;
+  display: flex;
+  // flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  .t1 {
+    width: 50%;
+  }
+  .t2 {
+    width: 50%;
+  }
 }
 </style>
