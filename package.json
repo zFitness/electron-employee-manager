@@ -18,7 +18,7 @@
     "echarts": "^4.5.0",
     "element-ui": "^2.4.5",
     "nice-bar": "^1.0.11",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "v-charts": "^1.19.0",
     "vant": "^2.3.3",
     "vue": "^2.6.10",
