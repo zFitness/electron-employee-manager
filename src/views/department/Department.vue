@@ -87,7 +87,7 @@ export default {
 }
 .card {
   display: flex;
-  width: 50%;
+  width: 30%;
 }
 .image {
   width: 100%;

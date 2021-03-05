@@ -3,7 +3,7 @@
     <!-- 右上角窗口标题 -->
     <div class="title">
       <span>
-        <i class="el-icon-male"></i> 人事管理
+         人事管理
       </span>
       <button style="margin-left:80px" @click="goback">
         <i class="el-icon-arrow-left"></i>

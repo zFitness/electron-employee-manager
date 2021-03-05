@@ -7,15 +7,12 @@
           <h2>登录</h2>
         </div>
         <div class="field">
-          <input type="email" placeholder="邮箱" v-model="form.email" v-on:keyup.enter="submit" />
+          <input type="email" placeholder="邮箱" v-model="form.email"
+                 v-on:keyup.enter="submit" />
         </div>
         <div class="field">
-          <input
-            type="password"
-            placeholder="用户密码"
-            v-model="form.password"
-            v-on:keyup.enter="submit"
-          />
+          <input type="password" placeholder="用户密码" v-model="form.password"
+                 v-on:keyup.enter="submit" />
         </div>
         <div class="field">
           <input type="button" @click="submit" value="确认" />
@@ -30,7 +27,8 @@
       </div>
       <div class="right-body">
         <div class="right-body-content">
-          <h1>管理系统</h1>
+          <h1>人事管理系统</h1>
+          <h2>hello, world</h2>
         </div>
         <div style="-webkit-app-region: no-drag;">
           <h2>扫码登录</h2>
@@ -50,10 +48,10 @@ import { mapMutations } from "vuex";
 import axios from "axios";
 const { ipcRenderer } = require("electron");
 export default {
-  created() {
+  created () {
     this.initWebSocket();
   },
-  data() {
+  data () {
     return {
       form: {
         email: "",
@@ -64,7 +62,7 @@ export default {
     };
   },
   methods: {
-    initWebSocket() {
+    initWebSocket () {
       //初始化weosocket
       console.log("初始化websocket");
       const wsuri = this.$global_msg.socket_host + "websocket/login"; //这个地址由后端童鞋提供
@@ -74,18 +72,18 @@ export default {
       this.websock.onerror = this.websocketonerror;
       this.websock.onclose = this.websocketclose;
     },
-    websocketonopen() {
+    websocketonopen () {
       //连接建立之后执行send方法发送数据
       console.log("建立连接成功");
       this.websocketsend("hello");
       this.ecode = true;
     },
-    websocketonerror() {
+    websocketonerror () {
       //连接建立失败重连
       this.initWebSocket();
       this.error = false;
     },
-    websocketonmessage(e) {
+    websocketonmessage (e) {
       //数据接送
       console.log(e);
 
@@ -106,21 +104,21 @@ export default {
         this.$message.error(data.message);
       }
     },
-    websocketsend(Data) {
+    websocketsend (Data) {
       //数据发送
       this.websock.send(Data);
     },
-    websocketclose(e) {
+    websocketclose (e) {
       //关闭连接
       console.log("断开连接", e);
       // this.initWebSocket();
     },
-    close() {
+    close () {
       console.log("close");
       ipcRenderer.send("close");
     },
     ...mapMutations(["changeLogin"]),
-    submit() {
+    submit () {
       var regex = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
       if (this.form.email == "") {
         this.$message("请输入正确的内容");
@@ -169,9 +167,9 @@ export default {
 .field {
   margin: 0em 0em 1.2em;
   width: 100%;
-  input[type="email"],
-  input[type="password"],
-  input[type="button"] {
+  input[type='email'],
+  input[type='password'],
+  input[type='button'] {
     box-sizing: border-box;
     width: 100%;
     padding-top: 9px;
@@ -183,7 +181,7 @@ export default {
     border-radius: 3px;
     border: 1px solid #dfe3e9;
   }
-  input[type="button"] {
+  input[type='button'] {
     font-size: 17px;
     line-height: 22px;
     padding: 8px 26px;
@@ -224,7 +222,7 @@ export default {
 .right {
   width: 50%;
   background-color: #58687f;
-  background-image: url("../../assets/images/right-1.png");
+  background-image: url('../../assets/images/right-1.png');
   display: flex;
   flex-wrap: wrap;
 }

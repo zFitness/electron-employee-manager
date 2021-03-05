@@ -48,12 +48,12 @@ function createMenu() {
 function createWindow() {
     // Open the DevTools. vue tools 支持
     if (process.env.NODE_ENV === 'development') {
-        BrowserWindow.addDevToolsExtension("C:\\Users\\zfitness\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\nhdogjmejiglipccpnnnanhbledajbpd\\5.3.3_0");
+        // BrowserWindow.addDevToolsExtension("C:\\Users\\zfitness\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\nhdogjmejiglipccpnnnanhbledajbpd\\5.3.3_0");
     }
     // Create the browser window.
     win = new BrowserWindow({
-        width: 1010,
-        height: 670,
+        width: 1300,
+        height: 750,
         minHeight: 670,
         minWidth: 1010,
         webPreferences: {
